@@ -1,0 +1,58 @@
+{
+  "name": "hyperf-phpunit-runner",
+  "displayName": "Hyperf PHPUnit Runner Extension",
+  "description": "Run PHPUnit tests with custom commands directly from the editor for hyperf framework",
+  "version": "0.0.2",
+  "publisher": "PeilinWu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dickwu/hyperf-phpunit-runner-extension"
+  },
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Testing"
+  ],
+  "activationEvents": [
+    "onLanguage:php"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "hyperf-phpunit-runner.runTest",
+        "title": "Run PHPUnit Test"
+      },
+      {
+        "command": "hyperf-phpunit-runner.runTestMethod",
+        "title": "Run PHPUnit Test Method"
+      }
+    ],
+    "configuration": {
+      "title": "Hyperf PHPUnit Runner",
+      "properties": {
+        "hyperf-phpunit-runner.phpunitPath": {
+          "type": "string",
+          "default": "php vendor/bin/co-phpunit --prepend test/bootstrap.php",
+          "description": "Path to PHPUnit executable for hyperf"
+        },
+        "hyperf-phpunit-runner.phpunitArgs": {
+          "type": "string",
+          "default": "--colors=always",
+          "description": "Additional arguments for PHPUnit for hyperf"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.103.0",
+    "@types/node": "24.3.0",
+    "typescript": "^5.9.2"
+  }
+}
