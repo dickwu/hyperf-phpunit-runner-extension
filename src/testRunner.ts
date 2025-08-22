@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 export class PHPUnitTestRunner {
-    private terminal: vscode.Terminal | undefined;
 
     public async runTestMethod(filePath: string, methodName: string): Promise<void> {
         const config = vscode.workspace.getConfiguration('hyperf-phpunit-runner');
@@ -29,27 +28,27 @@ export class PHPUnitTestRunner {
     }
 
     private runInTerminal(command: string, cwd: string, testName: string): void {
-        // Create or reuse terminal
-        if (!this.terminal || this.terminal.exitStatus !== undefined) {
-            this.terminal = vscode.window.createTerminal({
+        // Use the active terminal or create a new one
+        let terminal = vscode.window.activeTerminal;
+        
+        if (!terminal) {
+            terminal = vscode.window.createTerminal({
                 name: 'PHPUnit Test Runner',
                 cwd: cwd
             });
         }
 
-        this.terminal.show();
+        terminal.show();
         
         // Send the command
-        this.terminal.sendText(`echo "Running test: ${testName}"`);
-        this.terminal.sendText(command);
+        terminal.sendText(`echo "Running test: ${testName}"`);
+        terminal.sendText(command);
         
         // Show a notification
         vscode.window.showInformationMessage(`Running PHPUnit test: ${testName}`);
     }
 
     public dispose(): void {
-        if (this.terminal) {
-            this.terminal.dispose();
-        }
+        // No need to dispose terminal since we use the active terminal
     }
 }
