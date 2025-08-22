@@ -2,14 +2,14 @@
   "name": "hyperf-phpunit-runner",
   "displayName": "Hyperf PHPUnit Runner Extension",
   "description": "Run PHPUnit tests with custom commands directly from the editor for hyperf framework",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "publisher": "PeilinWu",
   "repository": {
     "type": "git",
     "url": "https://github.com/dickwu/hyperf-phpunit-runner-extension"
   },
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.99.3"
   },
   "categories": [
     "Testing"
@@ -51,7 +51,7 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "^1.99.0",
     "@types/node": "24.3.0",
     "typescript": "^5.9.2"
   }

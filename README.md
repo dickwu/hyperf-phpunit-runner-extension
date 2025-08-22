@@ -42,3 +42,15 @@ php vendor/bin/co-phpunit --colors=always test/Cases/AdminChatTest.php --filter 
 
 - Methods starting with `test`: `public function testSomething()`
 - Methods with `@test` annotation: Any method with `/** @test */` above it
+
+## Self build
+
+```bash
+git clone https://github.com/dickwu/hyperf-phpunit-runner-extension.git
+cd hyperf-phpunit-runner-extension
+# if you don't have vsce, install it first
+npm install -g @vscode/vsce
+npm install
+vsce package
+code --install-extension hyperf-phpunit-runner-*.*.*.vsix # replace *.*.* with your version
+```

@@ -5,8 +5,8 @@ export class PHPUnitTestRunner {
     private terminal: vscode.Terminal | undefined;
 
     public async runTestMethod(filePath: string, methodName: string): Promise<void> {
-        const config = vscode.workspace.getConfiguration('phpunit-test-runner');
-        const phpunitPath = config.get<string>('phpunitPath') || 'php vendor/bin/co-phpunit';
+        const config = vscode.workspace.getConfiguration('hyperf-phpunit-runner');
+        const phpunitPath = config.get<string>('phpunitPath') || 'php vendor/bin/co-phpunit --prepend test/bootstrap.php';
         const phpunitArgs = config.get<string>('phpunitArgs') || '--colors=always';
 
         // Get workspace folder
