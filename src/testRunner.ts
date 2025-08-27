@@ -27,6 +27,30 @@ export class PHPUnitTestRunner {
         this.runInTerminal(command, workspacePath, methodName);
     }
 
+    public async runTestClass(filePath: string, className: string): Promise<void> {
+        const config = vscode.workspace.getConfiguration('hyperf-phpunit-runner');
+        const phpunitPath = config.get<string>('phpunitPath') || 'php vendor/bin/co-phpunit --prepend test/bootstrap.php';
+        const phpunitArgs = config.get<string>('phpunitArgs') || '--colors=always';
+
+        // Get workspace folder
+        const workspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(filePath));
+        const workspacePath = workspaceFolder?.uri.fsPath;
+        
+        if (!workspacePath) {
+            vscode.window.showErrorMessage('Could not determine workspace folder');
+            return;
+        }
+
+        // Convert absolute path to relative path from workspace root
+        const relativePath = path.relative(workspacePath, filePath);
+        
+        // Build the command
+        const command = `${phpunitPath} ${phpunitArgs} "${relativePath}"`;
+        
+        // Show output in terminal
+        this.runInTerminal(command, workspacePath, `${className} (class)`);
+    }
+
     private runInTerminal(command: string, cwd: string, testName: string): void {
         // Use the active terminal or create a new one
         let terminal = vscode.window.activeTerminal;

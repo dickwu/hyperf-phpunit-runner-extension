@@ -18,7 +18,14 @@ export function activate(context: vscode.ExtensionContext) {
         }
     );
 
-    context.subscriptions.push(codeLensProviderDisposable, runTestCommand);
+    const runTestClassCommand = vscode.commands.registerCommand(
+        'phpunit-test-runner.runTestClass',
+        (filePath: string, className: string) => {
+            testRunner.runTestClass(filePath, className);
+        }
+    );
+
+    context.subscriptions.push(codeLensProviderDisposable, runTestCommand, runTestClassCommand);
 }
 
 export function deactivate() {}

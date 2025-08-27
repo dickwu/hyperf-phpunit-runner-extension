@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { PHPTestParser, TestMethod } from './phpTestParser';
+import { PHPTestParser, TestMethod, TestClass } from './phpTestParser';
 import { PHPUnitTestRunner } from './testRunner';
 
 export class PHPUnitCodeLensProvider implements vscode.CodeLensProvider {
@@ -18,8 +18,22 @@ export class PHPUnitCodeLensProvider implements vscode.CodeLensProvider {
         }
 
         const testMethods = PHPTestParser.parseTestMethods(document);
+        const testClass = PHPTestParser.parseTestClass(document);
         const codeLenses: vscode.CodeLens[] = [];
 
+        // Add class-level "Run All Tests" lens if we have a test class
+        if (testClass && testMethods.length > 0) {
+            const runClassCommand: vscode.Command = {
+                title: '▶ Run All Tests',
+                command: 'phpunit-test-runner.runTestClass',
+                arguments: [document.fileName, testClass.name]
+            };
+
+            const classCodeLens = new vscode.CodeLens(testClass.range, runClassCommand);
+            codeLenses.push(classCodeLens);
+        }
+
+        // Add individual test method lenses
         for (const method of testMethods) {
             const runCommand: vscode.Command = {
                 title: '▶ Run Test',

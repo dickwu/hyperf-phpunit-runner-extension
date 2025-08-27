@@ -6,6 +6,12 @@ export interface TestMethod {
     line: number;
 }
 
+export interface TestClass {
+    name: string;
+    range: vscode.Range;
+    line: number;
+}
+
 export class PHPTestParser {
     static parseTestMethods(document: vscode.TextDocument): TestMethod[] {
         const testMethods: TestMethod[] = [];
@@ -54,6 +60,34 @@ export class PHPTestParser {
         }
         
         return testMethods;
+    }
+    
+    static parseTestClass(document: vscode.TextDocument): TestClass | null {
+        const text = document.getText();
+        const lines = text.split('\n');
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            
+            // Match class declaration that extends TestCase or has Test in the name
+            const classMatch = line.match(/^\s*(?:abstract\s+)?class\s+(\w*Test\w*)\s*(?:extends\s+\w+)?/);
+            
+            if (classMatch) {
+                const className = classMatch[1];
+                const range = new vscode.Range(
+                    new vscode.Position(i, 0),
+                    new vscode.Position(i, line.length)
+                );
+                
+                return {
+                    name: className,
+                    range,
+                    line: i
+                };
+            }
+        }
+        
+        return null;
     }
     
     static isTestFile(document: vscode.TextDocument): boolean {
