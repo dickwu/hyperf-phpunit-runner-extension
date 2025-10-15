@@ -15,7 +15,7 @@ A VS Code extension that provides run buttons for individual PHPUnit test method
 2. You'll see "▶ Run Test" buttons above each test method
 3. Click the button to run that specific test
 
-The extension will execute your custom PHPUnit command with the `--filter` parameter to run only the selected test method.
+The extension will execute your custom PHPUnit command with the `--filter` parameter. It uses a regex prefix so all methods beginning with the selected name will match.
 
 ## Configuration
 
@@ -29,7 +29,7 @@ Configure the extension in VS Code settings:
 When you click "▶ Run Test" on a method called `testEditMessage` in `test/Cases/AdminChatTest.php`, the extension will run:
 
 ```bash
-php vendor/bin/co-phpunit --colors=always test/Cases/AdminChatTest.php --filter "testEditMessage"
+php vendor/bin/co-phpunit --colors=always test/Cases/AdminChatTest.php --filter "/^testEditMessage.*/"
 ```
 
 ## Installation

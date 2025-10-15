@@ -2,7 +2,7 @@
   "name": "hyperf-phpunit-runner",
   "displayName": "Hyperf PHPUnit Runner Extension",
   "description": "Run PHPUnit tests with custom commands directly from the editor for hyperf framework",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "publisher": "PeilinWu",
   "repository": {
     "type": "git",
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@types/vscode": "^1.99.0",
-    "@types/node": "24.3.0",
+    "@types/node": "24.7.2",
     "typescript": "^5.9.2"
   }
 }
