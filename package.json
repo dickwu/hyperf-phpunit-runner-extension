@@ -4,6 +4,8 @@
   "description": "Run PHPUnit tests with custom commands directly from the editor for hyperf framework",
   "version": "0.0.11",
   "publisher": "PeilinWu",
+  "license": "MIT",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/dickwu/hyperf-phpunit-runner-extension"

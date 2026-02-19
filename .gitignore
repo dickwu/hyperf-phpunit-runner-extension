@@ -3,3 +3,4 @@ out
 .vscode
 *.vsix
 .cursor
+package-lock.json
