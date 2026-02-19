@@ -46,7 +46,7 @@ info "In sync with origin/$BRANCH"
 # ─── Build & verify ──────────────────────────────────────────────────
 echo -e "\n${YELLOW}Building extension...${NC}\n"
 
-npm ci --silent
+npm install --silent
 info "Dependencies installed"
 
 npm run compile
@@ -97,16 +97,8 @@ git push origin "$BRANCH"
 git push origin "$NEW_VERSION"
 info "Pushed to origin"
 
-# ─── Create GitHub Release ────────────────────────────────────────────
-echo -e "\n${YELLOW}Creating GitHub Release...${NC}\n"
-
-gh release create "$NEW_VERSION" \
-  --title "$NEW_VERSION" \
-  --generate-notes
-info "GitHub Release created — CI will auto-publish to Open VSX"
-
-# ─── Cleanup ──────────────────────────────────────────────────────────
+# ─── Done ─────────────────────────────────────────────────────────────
 rm -f *.vsix
 
-echo -e "\n${GREEN}🚀 Done! $NEW_VERSION released successfully.${NC}"
-echo -e "   Open VSX publish will be handled by GitHub Actions.\n"
+echo -e "\n${GREEN}🚀 Done! $NEW_VERSION pushed successfully.${NC}"
+echo -e "   GitHub Actions will auto-publish to Open VSX and create the Release.\n"
